@@ -1,4 +1,9 @@
 ﻿  main .cpp
-c:\users\h\desktop\midterm\community_detection.h(28): error C2065: 'vector': 未宣告的識別項
-c:\users\h\desktop\midterm\community_detection.h(28): error C2062: 未預期的類型 'int'
+c:\users\h\desktop\midterm\community_detection.h(54): warning C4018: '<': signed/unsigned 不相符
+c:\users\h\desktop\midterm\community_detection.h(70): warning C4018: '<': signed/unsigned 不相符
+c:\users\h\desktop\midterm\community_detection.h(84): warning C4018: '<': signed/unsigned 不相符
+c:\users\h\desktop\midterm\community_detection.h(95): warning C4018: '<': signed/unsigned 不相符
+c:\users\h\desktop\midterm\community_detection.h(123): warning C4018: '<': signed/unsigned 不相符
+c:\users\h\desktop\midterm\community_detection.h(124): warning C4018: '>=': signed/unsigned 不相符
 c:\users\h\desktop\midterm\main .cpp(23): warning C4018: '<': signed/unsigned 不相符
+  Midterm.vcxproj -> C:\Users\H\source\repos\Midterm\Debug\Midterm.exe
