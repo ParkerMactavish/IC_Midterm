@@ -34,31 +34,31 @@ int* community_detection(int **A, const int NUM_NODES)//A is a adjacency matrix,
 	bool complete_flag;
 	int rand_result;
 
-	for (int col_index = 0; col_index < NUM_NODES; col_index++) {
+	for (int col_index = 0; col_index < NUM_NODES; col_index++) {//Initialize possible group for all vertixes
 		possible_group_cnt[col_index][0][0] = col_index;
 		possible_group_cnt[col_index][1][0] = 1;
 	}
 
-	for (int times = 1; times < test_times; times++) {
-		for (int col_index = 0; col_index < NUM_NODES; col_index++) {
-			while (tmp_possible_group[0].size()) {
+	for (int times = 1; times < test_times; times++) {//To go through all of it for test_times
+		for (int col_index = 0; col_index < NUM_NODES; col_index++) {//To go through all vertixes
+			while (tmp_possible_group[0].size()) {//To initialize the temporary container
 				tmp_possible_group[0].pop_back();
 				tmp_possible_group[1].pop_back();
 			}
-			for (int row_index = 0; row_index < NUM_NODES; row_index++) {
+			for (int row_index = 0; row_index < NUM_NODES; row_index++) {//To go through all of vertixes in another dimension
 				//cout << "row" << row_index << endl;
-				if (A[col_index][row_index] == 1 && row_index != col_index) {
+				if (A[col_index][row_index] == 1 && row_index != col_index) {//If entry of adjacency of col and row is 1
 					complete_flag = false;
-					rand_result = possible_group_cnt[row_index][rand() % times][0];
+					rand_result = possible_group_cnt[row_index][rand() % times][0];//randomly find a labor in the row vertix
 					//cout << row_index<<endl<<tmp_possible_group[0].size()<<endl;
-					for (int tmp_index = 0; tmp_index < tmp_possible_group[0].size() && complete_flag == false; tmp_index++) {
+					for (int tmp_index = 0; tmp_index < tmp_possible_group[0].size() && complete_flag == false; tmp_index++) {//To find if there is any previous record of the labor
 						if (tmp_possible_group[0][tmp_index] == rand_result) {
 							//cout << tmp_possible_group[1][tmp_index] << endl;
 							tmp_possible_group[1][tmp_index]++;
 							complete_flag = true;
 						}
 					}
-					if (complete_flag == false) {
+					if (complete_flag == false) {//If not then add a new record
 						tmp_possible_group[0].push_back(rand_result);
 						//cout << "tpg00"<<tmp_possible_group[0][0] << endl;
 						tmp_possible_group[1].push_back(1);
@@ -67,7 +67,7 @@ int* community_detection(int **A, const int NUM_NODES)//A is a adjacency matrix,
 				}
 			}
 			//cout << 1;
-			for (int sorting_index_i = 1; sorting_index_i < tmp_possible_group[1].size(); sorting_index_i++) {
+			for (int sorting_index_i = 1; sorting_index_i < tmp_possible_group[1].size(); sorting_index_i++) {//sort the temporary container to find the most drawn labor
 				for (int sorting_index_j = sorting_index_i - 1; sorting_index_j >= 0; sorting_index_j--) {
 					if (tmp_possible_group[1][sorting_index_j + 1] > tmp_possible_group[1][sorting_index_j]) {
 						int swap_tmp = tmp_possible_group[0][sorting_index_j];
@@ -80,7 +80,7 @@ int* community_detection(int **A, const int NUM_NODES)//A is a adjacency matrix,
 				}
 			}
 			//cout << 1;
-			int greatest_cnt=tmp_possible_group[1][0], greatest_cnt_index = 1;
+			int greatest_cnt=tmp_possible_group[1][0], greatest_cnt_index = 1;//To write the most drawn labor. If there are two labors with the same frequency, then draw one.
 			for (; greatest_cnt_index<tmp_possible_group[1].size()&&tmp_possible_group[1][greatest_cnt_index] == greatest_cnt; greatest_cnt_index++);
 			possible_group_cnt[col_index][times][0] = tmp_possible_group[0][rand() % greatest_cnt_index];
 			possible_group_cnt[col_index][times][1] = 1;
